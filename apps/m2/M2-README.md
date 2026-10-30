@@ -7,7 +7,21 @@ FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_real_xhtml_document
 FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_processing_instruction
 FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_out_of_range_entity
 
-## Part 2- API Definitions:
+### Part 1 - Time tracking for SoupStrainer:
+
+| Task | Test File | Version | Count | Script timer | time total |
+| :--: | :--: | :--: | :--: | :--: | :--: |
+| Task 3 | sample-15mb.xml | MileStone 1 (no Strainer) | 4.95s | 6.034s |
+| Task 3 | sample-15mb.xml | MileStone 2 (SoupStrainer) | 589225 | 4.92s | 6.088s |
+| Task 4 | sample-15mb.xml | MileStone 1 (no strainer) | 98204 | 4.86s | 7.42s |
+| Task 4 | sample-15mb.xml | MileStone 2 (SoupStrainer) | 98204 | 4.84s | 7.39s |
+
+
+- The times are virtually the same due to the file containing an id attribute to every `<record>` including everything nested inside it. So the strainer keeps, almost entirely, the whole document. 
+
+- The strainer is matching every tag so there is nothing getting skipped. The slight time difference is attributed to normal behavior for time runs
+
+### Part 2- API Definitions:
 
 The following table provides a clear understanding of where each bs4 API used within MileStone 1 and part 1 are located, within the source code. When reading the table, you will see the column line are referenced in comparison the the original unmodified source at our init repo commits. Finding each  API was straightforward thanks to git grep, which is used to quickly search for specific text. Since some names had several matched, I choose the one with the Tag.
 
@@ -29,11 +43,4 @@ The following table provides a clear understanding of where each bs4 API used wi
 | find_parents | bs4/element.py | 1022 | PageElement (inherited by tag) | Discussed in the MileStone 1 README, but never called | 
 
 
-## Time tracking for SoupStrainer using the same file:
 
-| File | Version | Count | Script timer | time total |
-| :--: | :--: | :--: | :--: | :--: |
-| sample-15mb.xml | MileStone 1 (no strainer) | 98204 | 4.86s | 7.42s |
-| sample-15mb.xml | MileStone 2 (SoupStrainer) | 98204 | 4.84s | 7.39s |
-
-- The time are virtually the same due to the file containing an id tag to every "< record >" so the strainer keeps, almost entirely, the whole document. 
