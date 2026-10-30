@@ -7,7 +7,7 @@ FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_real_xhtml_document
 FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_processing_instruction
 FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_out_of_range_entity
 
-Part 2- API Definitions:
+## Part 2- API Definitions:
 
 The following table provides a clear understanding of where each bs4 API used within MileStone 1 and part 1 are located, within the source code. When reading the table, you will see the column line are referenced in comparison the the original unmodified source at our init repo commits. Finding each  API was straightforward thanks to git grep, which is used to quickly search for specific text. Since some names had several matched, I choose the one with the Tag.
 
@@ -27,3 +27,13 @@ The following table provides a clear understanding of where each bs4 API used wi
 | get_text | bs4/element.py | 524 | PageElement (inherited by tag) | MileStone 1 task 5 |
 | find_parent | bs4/element.py | 992 | PageElement (inherited by tag) | MileStone task 5 |
 | find_parents | bs4/element.py | 1022 | PageElement (inherited by tag) | Discussed in the MileStone 1 README, but never called | 
+
+
+## Time tracking for SoupStrainer using the same file:
+
+| File | Version | Count | Script timer | time total |
+| :--: | :--: | :--: | :--: | :--: |
+| sample-15mb.xml | MileStone 1 (no strainer) | 98204 | 4.86s | 7.42s |
+| sample-15mb.xml | MileStone 2 (SoupStrainer) | 98204 | 4.84s | 7.39s |
+
+- The time are virtually the same due to the file containing an id tag to every "< record >" so the strainer keeps, almost entirely, the whole document. 
