@@ -91,6 +91,7 @@ from .formatter import Formatter
 from .filter import (
     ElementFilter,
     SoupStrainer,
+    SoupReplacer,
 )
 from typing import (
     Any,
@@ -215,6 +216,7 @@ class BeautifulSoup(Tag):
         from_encoding: Optional[_Encoding] = None,
         exclude_encodings: Optional[_Encodings] = None,
         element_classes: Optional[Dict[Type[PageElement], Type[PageElement]]] = None,
+        replacer: Optional[SoupReplacer] = None, 
         **kwargs: Any,
     ):
         """Constructor.
@@ -234,6 +236,9 @@ class BeautifulSoup(Tag):
          instance to use) instead of looking one up based on
          `features`. You only need to use this if you've implemented a
          custom TreeBuilder.
+
+        :param replacer: A SoupReplacer that will replace tag names that
+         match its original name with a new name while parsing. 
 
         :param parse_only: A SoupStrainer. Only parts of the document
          matching the SoupStrainer will be considered. This is useful
@@ -435,6 +440,7 @@ class BeautifulSoup(Tag):
         self.known_xml = self.is_xml
         self._namespaces = dict()
         self.parse_only = parse_only
+        self.replacer = replacer
 
         if hasattr(markup, "read"):  # It's a file-type object.
             markup = markup.read()
