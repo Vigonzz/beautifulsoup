@@ -1030,6 +1030,9 @@ class BeautifulSoup(Tag):
             and not self.parse_only.allow_tag_creation(nsprefix, name, attrs)
         ):
             return None
+        
+        if self.replacer:
+            name = self.replacer.replacement_for_tag_name(name)
 
         tag_class = self.element_classes.get(Tag, Tag)
         # Assume that this is either Tag or a subclass of Tag. If not,
