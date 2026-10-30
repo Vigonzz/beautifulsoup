@@ -680,3 +680,17 @@ class SoupStrainer(ElementFilter):
         :meta private:
         """
         return element if self.match(element) else None
+
+class SoupReplacer:
+    """ Similar to SoupStrainer; however, replaces tag names during parsing. Og_tag is the name being
+     found while alt_tag is the name to use instead """
+
+    def __init__(self, og_tag, alt_tag):
+        self.og_tag = og_tag
+        self.alt_tag = alt_tag
+
+    def replacement_for_tag_name(self, tag_name):
+        if tag_name == self.og_tag:
+            return self.alt_tag
+        else:
+            return tag_name

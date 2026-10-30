@@ -7,6 +7,7 @@
 import time
 import sys, os
 from bs4 import BeautifulSoup
+from bs4 import SoupStrainer 
 
 # check the arguments being passed
 if len(sys.argv) < 2:
@@ -30,9 +31,12 @@ print(f"Using {parser} File: {filename}")
 
 start = time.perf_counter()
 
+# Creating the strainer
+strainer = SoupStrainer("a")
+
 # Read the file passing it into Beautiful Constructor 
 with open(filename, encoding="utf-8") as f:
-    soup = BeautifulSoup(f, parser)
+    soup = BeautifulSoup(f, parser, parse_only=strainer)
 
 #find the anchor tags
 find_links = soup.find_all("a")

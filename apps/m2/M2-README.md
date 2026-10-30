@@ -11,7 +11,7 @@ FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_out_of_range_entity
 
 | Task | Test File | Version | Count | Script timer | time total |
 | :--: | :--: | :--: | :--: | :--: | :--: |
-| Task 3 | sample-15mb.xml | MileStone 1 (no Strainer) | 4.95s | 6.034s |
+| Task 3 | sample-15mb.xml | MileStone 1 (no Strainer) | 589225 | 4.95s | 6.034s |
 | Task 3 | sample-15mb.xml | MileStone 2 (SoupStrainer) | 589225 | 4.92s | 6.088s |
 | Task 4 | sample-15mb.xml | MileStone 1 (no strainer) | 98204 | 4.86s | 7.42s |
 | Task 4 | sample-15mb.xml | MileStone 2 (SoupStrainer) | 98204 | 4.84s | 7.39s |
