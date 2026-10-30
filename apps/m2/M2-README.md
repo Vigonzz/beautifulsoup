@@ -1,1 +1,29 @@
 # Milestone-2
+
+Baseline:
+pytest -rf -q | grep FAILED:
+FAILED bs4/tests/test_htmlparser.py::TestHTMLParserTreeBuilder::test_rejected_input
+FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_real_xhtml_document
+FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_processing_instruction
+FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_out_of_range_entity
+
+Part 2- API Definitions:
+
+The following table provides a clear understanding of where each bs4 API used within MileStone 1 and part 1 are located, within the source code. When reading the table, you will see the column line are referenced in comparison the the original unmodified source at our init repo commits. Finding each  API was straightforward thanks to git grep, which is used to quickly search for specific text. Since some names had several matched, I choose the one with the Tag.
+
+| API | File | Line | Class | Used in |
+|:--- | :--  | :--: | --: | --: |
+| BeautifulSoup (class) | bs4/__init__.py | 133 | BeautifulSoup (extends Tag) | All MileStone 1 tasks contain these and all of part 1 of this MileStone task |
+| BeautifulSoup.__init__ | bs4/__init__.py | 209 | BeautifulSoup | All MileStone 1 task AND ALL MileStone part 2 application |
+| e_only | bs4/__init__.py | 214 | BeautifulSoup | MileStone one task 8 and now mileStone 2, milestone part 1 |
+| Strainer (class) | bs4/__init__.py | 313 | SoupStrainer (extends Element Filter) | MileStone 1 Task 8 and MileStone 2 part 1 |
+| Strainer.__init__ | 345 | SoupStrainer | Milestone 1 task 8 and MileStone 2 part 1 |
+| find_all | bs4/element.oy | 2715 | tag | MileStone task 2-8 and MileStone part 1 |
+| find | bs4/element.py | 2684 | tag | MileStone 1 task 5 |
+| get | bs4/element.py | 2160 | tag | MileStone 1 task 2,4,5 |
+| __setitem__ (tag["class"] = …) | bs4/element.py | 2223 | tag | (read) | MileStone task 7
+| name (tag.name = ...) | bs4/element.py | 1648 | tag (set in __init__, line 1618) | MileStone 1 task 6 (assigning), task 3, and task 4 |
+| prettify | bs4/element.py | 2601 | tag | MileStone 1 tasks 1,6,7 |
+| get_text | bs4/element.py | 524 | PageElement (inherited by tag) | MileStone 1 task 5 |
+| find_parent | bs4/element.py | 992 | PageElement (inherited by tag) | MileStone task 5 |
+| find_parents | bs4/element.py | 1022 | PageElement (inherited by tag) | Discussed in the MileStone 1 README, but never called | 
