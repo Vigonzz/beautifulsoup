@@ -97,3 +97,4 @@ FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_out_of_range_entity
 
 #### AI transparency:
 I coded all assignments on my own, however, I had assistance fro Claude for questions, going over design decisions, and step guides. 
+https://claude.ai/share/450fd95d-213d-412c-adab-ae62523788f0
