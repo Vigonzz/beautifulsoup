@@ -94,3 +94,6 @@ FAILED bs4/tests/test_htmlparser.py::TestHTMLParserTreeBuilder::test_rejected_in
 FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_real_xhtml_document
 FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_processing_instruction
 FAILED bs4/tests/test_lxml.py::TestLXMLTreeBuilder::test_out_of_range_entity
+
+#### AI transparency:
+I coded all assignments on my own, however, I had assistance fro Claude for questions, going over design decisions, and step guides. 
