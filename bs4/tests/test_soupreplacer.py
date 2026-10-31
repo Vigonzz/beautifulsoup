@@ -26,5 +26,16 @@ class TestSoupReplacer(SoupTest):
 
         assert html_check.get("id") == 'greeting'
     
+    def test_tag_close_properly(self):
+        """ Checking that the end tag closes properly, where content
+        after the original end stays outside the new tag """
+        end_tag_replacer = SoupReplacer("b", "blockquote")
+        end_html ="<p>Hi <b>bold</b> after</p>"
+        soup = self.soup(end_html, replacer=end_tag_replacer)
 
+        end_check = soup.find("blockquote")
+
+        assert end_check.get_text() == "bold"
+
+        assert end_check.next_sibling == " after"
 
