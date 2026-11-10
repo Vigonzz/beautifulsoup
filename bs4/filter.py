@@ -682,12 +682,31 @@ class SoupStrainer(ElementFilter):
         return element if self.match(element) else None
 
 class SoupReplacer:
-    """ Similar to SoupStrainer; however, replaces tag names during parsing. Og_tag is the name being
-     found while alt_tag is the name to use instead """
+    """ Similar to SoupStrainer; however, replaces tag names during parsing. og_tag is the name being
+     found while alt_tag is the name to use instead. Paired the og_tag to the alt_tag. the three xformers 
+     receive a tag and run in order when the tag closes"""
 
-    def __init__(self, og_tag, alt_tag):
+    def __init__(self, og_tag=None, alt_tag=None, name_xformer=None, attrs_xformer=None, xformer=None):
+        # Validate
+        if (og_tag is None) != (alt_tag is None):
+            raise ValueError("og_tag and alt_tag must be given together")
+        
+        # Mixing check
+        self.has_xformers = name_xformer is not None or attrs_xformer is not None or xformer is not None
+        if (og_tag is not None and self.has_xformers):
+            raise ValueError("Pair and xformers can not be used together. Must pick ONE interface")
+        
+        # Callable check
+        for (label, value) in (("name_xformer", name_xformer), ("attrs_xformer", attrs_xformer), ("xformer", xformer)):
+            if value is not None and not callable(value):
+                raise TypeError(f"{label} must be callable")
+
         self.og_tag = og_tag
         self.alt_tag = alt_tag
+        self.name_xformer = name_xformer
+        self.attrs_xformer = attrs_xformer
+        self.xformer = xformer
+
 
     def replacement_for_tag_name(self, tag_name):
         if tag_name == self.og_tag:
