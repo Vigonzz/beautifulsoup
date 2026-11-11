@@ -122,6 +122,19 @@ class TestSoupReplacer(SoupTest):
         bq["data-renamed"] == "yes"
         bq["data-seen"] == "yes"
 
+    # Test 5 Validation errors:
+    def test_invalid_args_raise(self):
+        """ Test bad calls and ensure that the step 2 check catches it """
+        with pytest.raises(ValueError):
+            SoupReplacer(og_tag="b")
+
+        with pytest.raises(ValueError):
+            SoupReplacer("b", "blockquote", xformer=print)
+
+        with pytest.raises(TypeError):
+            SoupReplacer(attrs_xformer="hello")
+
+
 
  
     
