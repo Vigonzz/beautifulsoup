@@ -810,6 +810,10 @@ class BeautifulSoup(Tag):
         # print("Pop", tag.name)
         if self.tagStack:
             self.currentTag = self.tagStack[-1]
+        # Hook tags into popTag
+        if self.replacer is not None and self.replacer.has_xformers and tag is not self:
+            self.replacer.transform(tag)
+    
         return self.currentTag
 
     def pushTag(self, tag: Tag) -> None:
