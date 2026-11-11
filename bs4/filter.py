@@ -713,3 +713,25 @@ class SoupReplacer:
             return self.alt_tag
         else:
             return tag_name
+    
+    def transform (self, tag):
+        """ Takes one closed tag and runs the three xformers on it """
+        # name_xformer
+        if self.name_xformer is not None:
+            new_name = self.name_xformer(tag)
+            # Gaurd
+            if not isinstance(new_name, str) or not new_name:
+                raise TypeError("name_xformer must return a non empty string")
+            tag.name = new_name
+
+        # attrs_xformer
+        if self.attrs_xformer is not None:
+            new_attrs = self.attrs_xformer(tag)
+            if not isinstance(new_attrs, dict):
+                raise TypeError("attrs_xformer must return a dict")
+            tag.attrs = new_attrs
+
+        # xformer
+        if self.xformer is not None:
+            # Changes the tag directly so its not necessary to store tag
+            self.xformer(tag)            
