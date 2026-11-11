@@ -77,5 +77,51 @@ class TestSoupReplacer(SoupTest):
         # Count to make sure both lines are present
         assert len(check_replace_2.find_all("a")) == 2 
 
+    def test_xformer_removes_class(self):
+        """ Test 3: the class delete """
+        check_3 = "<div class='delete'> Delete the following paragraph> <p class='paragraph'> The robots are in town.<span class='spanning' id='ah'> Robots </span></p></div>"
+        
+        # The helper function
+        def remove_class_attr(tag):
+            if "class" in tag.attrs:
+                # Delete the key from the function 
+                del tag.attrs["class"]
+
+        # Arrange the replacer
+        xformer_replacer = SoupReplacer(xformer=remove_class_attr)
+        check_replace_3 = self.soup(check_3, replacer=xformer_replacer)
+
+        assert len(check_replace_3.find_all(class_=True)) == 0
+
+    # Proves the order Test 4
+    def test_all_three_xformers_run_in_order(self):
+        """ Test 4 test the xformers"""
+        check_4 = "<p> I would <b>enjoy</b> a quick snack.</p>"
+
+        # The helpers
+        rename_b = lambda tag: "blockquote" if tag.name == "b" else tag.name
+
+        def mark_renamed(tag):
+            if tag.name == "blockquote":
+                attrs_xformer_copy = (dict(tag.attrs))
+                attrs_xformer_copy["data-renamed"] = "yes"
+                return attrs_xformer_copy
+            return tag.attrs
+    
+        # xformer
+        def mark_seen(tag):
+            if "data-renamed" in tag.attrs:
+                tag.attrs["data-seen"] = "yes"
+
+        # The replacer 
+        all_three_replacer = SoupReplacer(name_xformer=rename_b, attrs_xformer=mark_renamed, xformer=mark_seen)
+        check_replace_4 = self.soup(check_4, replacer=all_three_replacer)
+
+        len(check_replace_4.find_all("b")) == 0
+        bq = check_replace_4.blockquote
+        bq["data-renamed"] == "yes"
+        bq["data-seen"] == "yes"
 
 
+ 
+    
