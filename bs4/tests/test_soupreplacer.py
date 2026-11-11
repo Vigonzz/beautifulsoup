@@ -133,8 +133,25 @@ class TestSoupReplacer(SoupTest):
 
         with pytest.raises(TypeError):
             SoupReplacer(attrs_xformer="hello")
+    
+    # Test 6 Every tag visited once, root skipped:
+    def test_xformer_visits_every_tag(self):
+        """ Proves popTag hook reaches every tag """
+        check_6 = "<div> I am a nested tag <p><br> When I think of not being nested, I nest more!<span>span</span></p> </div>"
 
+        # Arranging the list and the helper
+        visited = []
+        
+        # helper
+        def record(tag):
+            visited.append(tag.name)
 
+            check_6_replacer = SoupReplacer(xformer=record)
+            check_replace_6 = self.soup(check_6, replacer=check_6_replacer)
 
+            assert len(visited) == len(check_replace_6.find_all(True))
+            assert "[document]" not in visited
+            assert "br" in visited
+            
  
     
