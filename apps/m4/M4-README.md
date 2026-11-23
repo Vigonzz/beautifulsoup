@@ -56,3 +56,6 @@ If you were to use len() and in, it would still refer to the direct children onl
 
 Formatting from an html file comes with alot of whitespace, which is translated to NavigableString nodes, so it displays as ‘\n’. Inevitably, the `\n` will then be counted as a node since they are real nodes but may not be the ones the user is expecting.
 If the user would want to gather the top-level children, then it is important to note that with this implementation modifies that. From iteration the script will instead retrieve all nodes, since again, the behavior is changed and not implemented as new.
+
+#### Thing to expect:
+When running pytest use `python -m pytest` and the user should see 4 failed test which existed originally and have no effect to any of the implementations. and primarily 738 test passed.
