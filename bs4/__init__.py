@@ -544,16 +544,15 @@ class BeautifulSoup(Tag):
         # Determine if the soup has children or not and set current to the child if so
         if self.contents:
             current = self.contents[0]
+        # Handles empty documents allowing the loop to not run
         else:
             current = None
         
-        # While current is none
+        # Keep going till the end of the document: Soup is the root and None would mark the end of the doc
         while current is not None:
-            # Save successor
+            # Save successor before yielding to account for any behavioral changes
             successor = current.next_element
-            # Yield the current node
             yield current
-            # Move current to successor
             current = successor
         
 
