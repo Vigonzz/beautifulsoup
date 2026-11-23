@@ -59,3 +59,10 @@ If the user would want to gather the top-level children, then it is important to
 
 #### Thing to expect:
 When running pytest use `python -m pytest` and the user should see 4 failed test which existed originally and have no effect to any of the implementations. and primarily 738 test passed.
+
+
+Acknowledgment:
+AI was used to help with debugging, deeper undertsanding, and step by step guide. The full conversation can be viewd at:
+https://claude.ai/share/1cc41d75-47dd-4a73-8267-3a5fef3f898a
+
+All code was created by me
