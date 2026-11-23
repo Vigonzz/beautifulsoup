@@ -537,6 +537,28 @@ class BeautifulSoup(Tag):
         self.reset()
         self._feed()
 
+    def __iter__(self) -> Iterator[PageElement]:
+        """ Using depth first order, iteration occurs over every node in the tree within the document. Therefore it only goes 
+        through one node at a time without building a list. The soup is not included in the iteration """
+
+        # Determine if the soup has children or not and set current to the child if so
+        if self.contents:
+            current = self.contents[0]
+        else:
+            current = None
+        
+        # While current is none
+        while current is not None:
+            # Save successor
+            successor = current.next_element
+            # Yield the current node
+            yield current
+            # Move current to successor
+            current = successor
+        
+
+
+
     @classmethod
     @_deprecated(
         replaced_by="nothing (private method, will be removed)", version="4.13.0"
